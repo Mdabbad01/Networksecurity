@@ -15,7 +15,7 @@ import pandas as pd
 import numpy as np
 import pymongo
 
-from networksecurity.exception import NetworkSecurityException
+from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
 
 class NeteworkDataExtract():
@@ -50,9 +50,15 @@ class NeteworkDataExtract():
       except Exception as e:
           raise NetworkSecurityException(e,sys)
       
-      if __name__== '__main__':
+if __name__== '__main__':
           FILE_PATH="Network_Data\phising_data.csv"
-          collection="Network"
-      
+          DATABASE="MD_abbad"
+          collection="NetworkData"
+          networkobj=NeteworkDataExtract()
+          
+          records=networkobj._csv_to_json_convertor(file_path=FILE_PATH)
+          print(records)
+          no_of_records=networkobj.insert_data_mongodb(records,DATABASE,collection)
+          print(no_of_records)
 
 

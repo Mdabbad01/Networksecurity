@@ -1,0 +1,4 @@
+[2025-08-14 15:10:50] 24 root  INFO - Logging is successfully set up!
+[2025-08-14 15:10:50] 25 root  WARNING - This is a warning message.
+[2025-08-14 15:10:50] 26 root  ERROR - This is an error message.
+[2025-08-14 15:10:56] 15 root  INFO - Initiating the data ingestion process...

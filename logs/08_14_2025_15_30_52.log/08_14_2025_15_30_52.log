@@ -1,0 +1,8 @@
+[2025-08-14 15:30:52] 24 root  INFO - Logging is successfully set up!
+[2025-08-14 15:30:52] 25 root  WARNING - This is a warning message.
+[2025-08-14 15:30:52] 26 root  ERROR - This is an error message.
+[2025-08-14 15:30:57] 15 root  INFO - Initiating the data ingestion process...
+[2025-08-14 15:31:04] 65 root  INFO - Performed train-test split on the dataframe.
+[2025-08-14 15:31:04] 70 root  INFO - Exporting train and test file paths.
+[2025-08-14 15:31:04] 77 root  INFO - Exported train and test files successfully.
+[2025-08-14 15:31:04] 18 root  INFO - Data ingestion completed: DataIngestionArtifact(trained_file_path='Artifacts\\08_14_2025_15_30_54\\data_ingestion\\ingested\\train.csv', test_file_path='Artifacts\\08_14_2025_15_30_54\\data_ingestion\\ingested\\test.csv')

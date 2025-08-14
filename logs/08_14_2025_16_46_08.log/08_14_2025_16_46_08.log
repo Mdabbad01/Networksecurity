@@ -1,0 +1,11 @@
+[2025-08-14 16:46:08] 24 root  INFO - Logging is successfully set up!
+[2025-08-14 16:46:08] 25 root  WARNING - This is a warning message.
+[2025-08-14 16:46:08] 26 root  ERROR - This is an error message.
+[2025-08-14 16:46:12] 20 root  INFO - Initiating the data ingestion process...
+[2025-08-14 16:46:19] 65 root  INFO - Performed train-test split on the dataframe.
+[2025-08-14 16:46:19] 70 root  INFO - Exporting train and test file paths.
+[2025-08-14 16:46:19] 77 root  INFO - Exported train and test files successfully.
+[2025-08-14 16:46:19] 24 root  INFO - Data ingestion completed successfully.
+[2025-08-14 16:46:19] 25 root  INFO - Train CSV Path: Artifacts\08_14_2025_16_46_09\data_ingestion\ingested\train.csv
+[2025-08-14 16:46:19] 26 root  INFO - Test CSV Path: Artifacts\08_14_2025_16_46_09\data_ingestion\ingested\test.csv
+[2025-08-14 16:46:19] 27 root  INFO - Feature Store Path: Artifacts\08_14_2025_16_46_09\data_ingestion\feature_store\phising_data.csv

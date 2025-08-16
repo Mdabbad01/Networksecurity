@@ -1,2 +1,8 @@
 venv
 .env
+Artifacts/
+logs/
+__pycache__/
+*.pkl
+*.log
+

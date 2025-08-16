@@ -1,0 +1,27 @@
+[2025-08-16 21:58:19] 24 root  INFO - Logging is successfully set up!
+[2025-08-16 21:58:19] 25 root  WARNING - This is a warning message.
+[2025-08-16 21:58:19] 26 root  ERROR - This is an error message.
+[2025-08-16 21:58:24] 21 root  INFO - Initiating the data ingestion process...
+[2025-08-16 21:58:31] 65 root  INFO - Performed train-test split on the dataframe.
+[2025-08-16 21:58:31] 70 root  INFO - Exporting train and test file paths.
+[2025-08-16 21:58:31] 77 root  INFO - Exported train and test files successfully.
+[2025-08-16 21:58:31] 23 root  INFO - Data ingestion completed
+[2025-08-16 21:58:31] 34 root  INFO - Initiating the data validation process...
+[2025-08-16 21:58:31] 134 root  INFO - Starting data validation...
+[2025-08-16 21:58:31] 40 root  INFO - Required number of columns: 50
+[2025-08-16 21:58:31] 41 root  INFO - Dataframe has columns: 50
+[2025-08-16 21:58:31] 40 root  INFO - Required number of columns: 50
+[2025-08-16 21:58:31] 41 root  INFO - Dataframe has columns: 50
+[2025-08-16 21:58:31] 66 root  INFO - All numerical columns are present in the dataframe.
+[2025-08-16 21:58:31] 66 root  INFO - All numerical columns are present in the dataframe.
+[2025-08-16 21:58:32] 174 root  INFO - No significant data drift detected between train and test datasets.
+[2025-08-16 21:58:32] 176 root  INFO - Data validation completed successfully.
+[2025-08-16 21:58:32] 36 root  INFO - Data validation completed
+[2025-08-16 21:58:32] 39 root  INFO - Data ingestion and validation completed successfully.
+[2025-08-16 21:58:32] 40 root  INFO - Train CSV Path: Artifacts\08_16_2025_21_58_21\data_ingestion\ingested\train.csv
+[2025-08-16 21:58:32] 41 root  INFO - Test CSV Path: Artifacts\08_16_2025_21_58_21\data_ingestion\ingested\test.csv
+[2025-08-16 21:58:32] 42 root  INFO - Feature Store Path: Artifacts\08_16_2025_21_58_21\data_ingestion\feature_store\phising_data.csv
+[2025-08-16 21:58:32] 44 root  INFO - Validation Status: True
+[2025-08-16 21:58:32] 45 root  INFO - Validation Train Path: Artifacts\08_16_2025_21_58_21\data_validation\validated\train.csv
+[2025-08-16 21:58:32] 46 root  INFO - Validation Test Path: Artifacts\08_16_2025_21_58_21\data_validation\validated\test.csv
+[2025-08-16 21:58:32] 47 root  INFO - Validation Message: Data validation completed successfully

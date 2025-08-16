@@ -1,0 +1,18 @@
+[2025-08-16 21:47:45] 24 root  INFO - Logging is successfully set up!
+[2025-08-16 21:47:45] 25 root  WARNING - This is a warning message.
+[2025-08-16 21:47:45] 26 root  ERROR - This is an error message.
+[2025-08-16 21:47:50] 21 root  INFO - Initiating the data ingestion process...
+[2025-08-16 21:47:57] 65 root  INFO - Performed train-test split on the dataframe.
+[2025-08-16 21:47:57] 70 root  INFO - Exporting train and test file paths.
+[2025-08-16 21:47:58] 77 root  INFO - Exported train and test files successfully.
+[2025-08-16 21:47:58] 23 root  INFO - Data ingestion completed
+[2025-08-16 21:47:58] 34 root  INFO - Initiating the data validation process...
+[2025-08-16 21:47:58] 109 root  INFO - Starting data validation...
+[2025-08-16 21:47:58] 40 root  INFO - Required number of columns: 50
+[2025-08-16 21:47:58] 41 root  INFO - Dataframe has columns: 50
+[2025-08-16 21:47:58] 40 root  INFO - Required number of columns: 50
+[2025-08-16 21:47:58] 41 root  INFO - Dataframe has columns: 50
+[2025-08-16 21:47:58] 66 root  INFO - All numerical columns are present in the dataframe.
+[2025-08-16 21:47:58] 66 root  INFO - All numerical columns are present in the dataframe.
+[2025-08-16 21:47:58] 146 root  INFO - No significant data drift detected between train and test datasets.
+[2025-08-16 21:47:58] 148 root  INFO - Data validation completed successfully.

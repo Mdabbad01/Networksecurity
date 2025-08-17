@@ -97,5 +97,37 @@ class DataValidationConfig:
             training_pipeline.DATA_VALIDATION_DRIFT_REPORT_FILE_NAME
         )
 
-        
-       
+class DataTransformationConfig:
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+
+        # Main transformation directory inside artifacts
+        self.data_transformation_dir: str = os.path.join(
+            training_pipeline_config.artifact_dir,
+            training_pipeline.DATA_TRANSFORMATION_DIR_NAME
+        )
+
+        # Transformed data directory
+        self.transformed_data_dir: str = os.path.join(
+            self.data_transformation_dir,
+            training_pipeline.DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR
+        )
+
+        # Transformed train & test file paths (.npy format for fast loading)
+        self.transformed_train_file_path: str = os.path.join(
+            self.transformed_data_dir,
+            training_pipeline.TRAIN_FILE_NAME.replace(".csv", ".npy")
+        )
+        self.transformed_test_file_path: str = os.path.join(
+            self.transformed_data_dir,
+            training_pipeline.TEST_FILE_NAME.replace(".csv", ".npy")
+        )
+
+        # Preprocessor (scaler/encoder/imputer pipeline) object path
+        self.preprocessor_obj_file_path: str = os.path.join(
+            self.data_transformation_dir,
+            training_pipeline.DATA_TRANSFORMATION_PREPROCESSOR_DIR,
+            training_pipeline.PREPROCESSING_OBJECT_FILE_NAME
+        )
+
+        # KNN imputer parameters from constants
+        self.imputer_params: dict = training_pipeline.DATA_TRANSFORMATION_IMPUTER_PARAMS

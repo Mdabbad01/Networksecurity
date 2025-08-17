@@ -47,6 +47,27 @@ DATA_VALIDATION_DRIFT_REPORT_FILE_NAME : str = "report.yaml"
 
 
 
+"""
+data transformation constants
+"""
+DATA_TRANSFORMATION_DIR_NAME :str= "data_transformation"
+DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR :str= "transformed"
+DATA_TRANSFORMATION_PREPROCESSOR_DIR: str = "preprocessor"
+PREPROCESSING_OBJECT_FILE_NAME :str= "preprocessor.pkl"
+
+#knn imputer to replace nan values 
+
+DATA_TRANSFORMATION_IMPUTER_PARAMS: dict = {
+    "missing_values":np.nan,
+    "n_neighbors":3,
+    "weights":"uniform"
+}
+
+
+
+
+
+
 
 
 

@@ -24,3 +24,25 @@ class DataTransformationArtifact:
     transformed_test_file_path: str
     transformed_object_file_path: str  
     message: str = "Data Transformation completed successfully"
+    
+    
+from dataclasses import dataclass
+
+@dataclass
+class ModelTrainerArtifact:
+    trained_model_file_path: str
+    train_rmse: float
+    test_rmse: float
+    train_accuracy: float
+    test_accuracy: float
+    model_accuracy: float
+    message: str
+    train_r2: float    
+    test_r2: float  
+    
+@dataclass
+class ModelEvaluationArtifact:
+    is_model_accepted: bool
+    evaluated_model_path: str
+    best_model_path: str
+    message: str

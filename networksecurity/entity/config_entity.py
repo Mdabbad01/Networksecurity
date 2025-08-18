@@ -131,3 +131,40 @@ class DataTransformationConfig:
 
         # KNN imputer parameters from constants
         self.imputer_params: dict = training_pipeline.DATA_TRANSFORMATION_IMPUTER_PARAMS
+        
+class ModelTrainerConfig:
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+
+        # Main model trainer directory inside artifacts
+        self.model_trainer_dir: str = os.path.join(
+            training_pipeline_config.artifact_dir,
+            training_pipeline.MODEL_TRAINER_DIR_NAME
+        )
+
+        # Sub-folder for trained model storage
+        self.trained_model_dir: str = os.path.join(
+            self.model_trainer_dir,
+            training_pipeline.MODEL_TRAINER_TRAINED_MODEL_DIR
+        )
+
+        # Final trained model file path (.pkl)
+        self.trained_model_file_path: str = os.path.join(
+            self.trained_model_dir,
+            training_pipeline.MODEL_FILE_NAME
+        )
+
+        # Model hyperparameters from constants
+        self.model_params: dict = training_pipeline.MODEL_TRAINER_PARAMS
+
+        # Optional: base accuracy threshold (to decide if model is acceptable)
+        self.base_accuracy: float = training_pipeline.MODEL_TRAINER_BASE_ACCURACY
+        
+
+
+
+class ModelEvaluationConfig:
+    def __init__(self, training_pipeline_config):
+        self.model_evaluation_dir = os.path.join(training_pipeline_config.artifact_dir, "model_evaluation")
+        self.model_registry_dir = os.path.join("saved_models")  # directory for storing best models
+        self.best_model_path = os.path.join(self.model_registry_dir, "best_model.pkl")
+

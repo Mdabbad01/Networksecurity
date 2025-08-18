@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/hr591/OneDrive/Desktop/mlopsproject/mlruns/209585864200738425/5c02fc3c25114e2eb872cef146bbd590/artifacts
+end_time: 1755518026557
+entry_point_name: ''
+experiment_id: '209585864200738425'
+lifecycle_stage: active
+run_id: 5c02fc3c25114e2eb872cef146bbd590
+run_name: LogReg_Train
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1755517999847
+status: 3
+tags: []
+user_id: hr591

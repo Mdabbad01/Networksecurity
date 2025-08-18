@@ -1,0 +1,10 @@
+artifact_location: file:C:/Users/hr591/OneDrive/Desktop/mlopsproject/mlruns/209585864200738425/models/m-48deff0179694ff1b6928e4714b1ae1e/artifacts
+creation_timestamp: 1755439401101
+experiment_id: '209585864200738425'
+last_updated_timestamp: 1755439417943
+model_id: m-48deff0179694ff1b6928e4714b1ae1e
+model_type: null
+name: model
+source_run_id: 909429bbb5394ec9a1b8243a63ef92ea
+status: 2
+status_message: null

@@ -6,21 +6,34 @@ from datetime import datetime
 LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
 
 # Define logs directory path
-logs_path = os.path.join(os.getcwd(), "logs",LOG_FILE)
-os.makedirs(logs_path, exist_ok=True)  # Create the logs folder if not exists
+logs_dir = os.path.join(os.getcwd(), "logs")
+os.makedirs(logs_dir, exist_ok=True)
 
-# Define full path to log file
-LOG_FILE_PATH = os.path.join(logs_path, LOG_FILE)
+# Full log file path
+LOG_FILE_PATH = os.path.join(logs_dir, LOG_FILE)
 
-# Set up logging configuration
-logging.basicConfig(
-    filename=LOG_FILE_PATH,
-    level=logging.INFO,
-    format='[%(asctime)s] %(lineno)d %(name)s  %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
+# Create custom logger
+logger = logging.getLogger("NetworkSecurityLogger")
+logger.setLevel(logging.INFO)
 
-# Example log messages
-logging.info("Logging is successfully set up!")
-logging.warning("This is a warning message.")
-logging.error("This is an error message.")
+# Avoid duplicate logs if logger is re-imported
+if not logger.handlers:
+    # File handler
+    file_handler = logging.FileHandler(LOG_FILE_PATH)
+    file_handler.setLevel(logging.INFO)
+
+    # Console handler
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+
+    # Formatter
+    formatter = logging.Formatter(
+        '[%(asctime)s] %(lineno)d %(name)s %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    file_handler.setFormatter(formatter)
+    console_handler.setFormatter(formatter)
+
+    # Add handlers
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)

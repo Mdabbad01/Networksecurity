@@ -5,8 +5,11 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, mean_squared_error, r2_score
 
+# DagsHub MLflow: avoid "logged models" endpoint
+os.environ["MLFLOW_ENABLE_LOGGED_MODELS"] = "false"
+
 import mlflow
-import mlflow.sklearn
+import dagshub
 
 from networksecurity.entity.artifact_entity import (
     DataTransformationArtifact,
@@ -15,6 +18,11 @@ from networksecurity.entity.artifact_entity import (
 from networksecurity.entity.config_entity import ModelTrainerConfig
 from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
+from networksecurity.utils.main_utils import save_object  # now correctly exported
+
+
+# Initialize DagsHub MLflow tracking (before starting runs)
+dagshub.init(repo_owner="Mdabbad01", repo_name="Networksecurity", mlflow=True)
 
 
 class ModelTrainer:
@@ -38,7 +46,6 @@ class ModelTrainer:
         """
         try:
             logging.info("Training Logistic Regression model...")
-            # bump max_iter to reduce convergence warnings
             model = LogisticRegression(max_iter=1000, random_state=42, n_jobs=None)
             model.fit(X_train, y_train)
             return model
@@ -47,8 +54,8 @@ class ModelTrainer:
 
     def initiate_model_trainer(self) -> ModelTrainerArtifact:
         """
-        Runs the full model training pipeline: load arrays, train, evaluate, save model,
-        log everything to MLflow, and return an artifact object.
+        Load arrays, train, evaluate, save model locally and to final_model/,
+        and log metrics & artifacts to MLflow (DagsHub).
         """
         try:
             logging.info("Loading transformed train and test datasets...")
@@ -61,8 +68,7 @@ class ModelTrainer:
             X_train, y_train = train_arr[:, :-1], train_arr[:, -1]
             X_test, y_test = test_arr[:, :-1], test_arr[:, -1]
 
-            # Set up MLflow (local file storage by default)
-            mlflow.set_tracking_uri("file:./mlruns")
+            # Experiment name
             mlflow.set_experiment("NetworkSecurityExperiment")
 
             with mlflow.start_run(run_name="LogReg_Train"):
@@ -77,15 +83,13 @@ class ModelTrainer:
                 train_accuracy = float(accuracy_score(y_train, y_train_pred))
                 test_accuracy = float(accuracy_score(y_test, y_test_pred))
 
-                # RMSE (used for continuity with your artifact schema)
                 train_rmse = float(np.sqrt(mean_squared_error(y_train, y_train_pred)))
                 test_rmse = float(np.sqrt(mean_squared_error(y_test, y_test_pred)))
 
-                # R^2 (not typical for classification; included because your artifact prints it)
+                # (R2 is odd for classification, but kept to match your artifact schema)
                 train_r2 = float(r2_score(y_train, y_train_pred))
                 test_r2 = float(r2_score(y_test, y_test_pred))
 
-                # Final score (use test accuracy)
                 model_accuracy = float(test_accuracy)
 
                 # ---- Log params & metrics to MLflow
@@ -99,17 +103,22 @@ class ModelTrainer:
                 mlflow.log_metric("train_r2", train_r2)
                 mlflow.log_metric("test_r2", test_r2)
 
-                # ---- Log the model to MLflow
-                mlflow.sklearn.log_model(model, artifact_path="model")
+                # ---- Save model to your configured artifacts path (optional, keeps your pattern)
+                local_artifact_model_path = self.model_trainer_config.trained_model_file_path
+                os.makedirs(os.path.dirname(local_artifact_model_path), exist_ok=True)
+                joblib.dump(model, local_artifact_model_path)
+                # Upload that file as an artifact (safe for DagsHub)
+                mlflow.log_artifact(local_artifact_model_path, artifact_path="model_files")
 
-                # ---- Save the model locally (keeps your current contract)
-                logging.info(f"Saving trained model at: {self.model_trainer_config.trained_model_file_path}")
-                os.makedirs(os.path.dirname(self.model_trainer_config.trained_model_file_path), exist_ok=True)
-                joblib.dump(model, self.model_trainer_config.trained_model_file_path)
+                # ---- ALSO save to final_model/model.pkl (as your tutor expects)
+                final_model_path = os.path.join("final_model", "model.pkl")
+                save_object(final_model_path, model)
+                # Upload the final model too
+                mlflow.log_artifact(final_model_path, artifact_path="final_model")
 
-            # Build and return artifact
+            # Return artifact pointing at the final model path (so your prints match)
             model_trainer_artifact = ModelTrainerArtifact(
-                trained_model_file_path=self.model_trainer_config.trained_model_file_path,
+                trained_model_file_path=final_model_path,
                 train_rmse=train_rmse,
                 test_rmse=test_rmse,
                 train_accuracy=train_accuracy,

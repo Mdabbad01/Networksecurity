@@ -8,3 +8,5 @@ data_ingestion = DataIngestion(data_ingestion_config)
 artifact = data_ingestion.initiate_data_ingestion()
 print("Train CSV Path:", artifact.trained_file_path)
 print("Test CSV Path:", artifact.test_file_path)
+
+save_object("final_model/model.pkl",best_model)

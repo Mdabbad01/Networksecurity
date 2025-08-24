@@ -28,10 +28,10 @@ jobs:
 
     - name: Run tests
       run: |
-        # Add test command if you have unit tests
+        # Add your unit test command here
         echo "No tests yet"
 
-  docker-build:
+  docker-build-and-push:
     runs-on: ubuntu-latest
     needs: build-and-test
 
@@ -39,15 +39,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      uses: aws-actions/amazon-ecr-login@v1
+
     - name: Build Docker image
       run: |
         docker build -t networksecurity:latest .
 
-    - name: Push Docker image to Docker Hub
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Tag Docker image for ECR
       run: |
-        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-        docker tag networksecurity:latest $DOCKER_USERNAME/networksecurity:latest
-        docker push $DOCKER_USERNAME/networksecurity:latest
+        docker tag networksecurity:latest ${{ secrets.ECR_URI }}:latest
+
+    - name: Push Docker image to ECR
+      run: |
+        docker push ${{ secrets.ECR_URI }}:latest

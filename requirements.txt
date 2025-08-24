@@ -11,5 +11,9 @@ mlflow
 dagshub
 fastapi
 uvicorn 
+boto3
+joblib
+python-multipart
+
 
 ##-e .

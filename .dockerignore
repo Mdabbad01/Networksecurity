@@ -1,0 +1,7 @@
+venv/
+.env
+logs/
+Artifacts/
+*.pkl
+*.log
+__pycache__/

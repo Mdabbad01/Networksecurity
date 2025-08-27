@@ -28,7 +28,6 @@ jobs:
 
       - name: Run tests
         run: |
-          # Add your unit test command here
           echo "No tests yet"
 
   docker-build-and-push:
@@ -81,17 +80,16 @@ jobs:
         env:
           ECR_URI: ${{ secrets.ECR_URI }}
           IMAGE_TAG: latest
-          INSTANCE_IDS: ${{ secrets.EC2_INSTANCE_IDS }}  # comma-separated EC2 IDs
         run: |
-          echo "Deploying Docker container to EC2 instances via SSM..."
+          echo "Deploying Docker container to EC2 instance 'Networksecurity' via SSM..."
           aws ssm send-command \
-            --targets "Key=instanceIds,Values=$INSTANCE_IDS" \
+            --targets "Key=tag:Name,Values=Networksecurity" \
             --document-name "AWS-RunShellScript" \
             --comment "Deploy Docker container" \
-            --parameters 'commands=[
-              "docker pull $ECR_URI:$IMAGE_TAG",
+            --parameters commands='[
+              "docker pull ${ECR_URI}:${IMAGE_TAG}",
               "docker stop networksecurity || true",
               "docker rm networksecurity || true",
-              "docker run -d --name networksecurity -p 80:80 $ECR_URI:$IMAGE_TAG"
+              "docker run -d --name networksecurity -p 80:80 ${ECR_URI}:${IMAGE_TAG}"
             ]' \
             --region ${{ secrets.AWS_REGION }}
